@@ -4,6 +4,7 @@ import (
 	"fmt"
 	handler "go-imagestorage/internal/common"
 	imageHandler "go-imagestorage/internal/image"
+	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -14,9 +15,11 @@ func main() {
 
 	server.Get("/", handler.Info)
 	imageGroup := server.Group("/images")
-	imageGroup.Get("/:context/:filename", imageHandler.Retrieve);
+	imageGroup.Get("/:context/:filename", imageHandler.Retrieve)
 	imageGroup.Post("/upload", imageHandler.Upload)
 
-	fmt.Println("Server is running on http://localhost:3000")
-	server.Listen("localhost:3000")
+	port := 3000
+
+	fmt.Println("Server is running on http://localhost:" + strconv.Itoa(port))
+	server.Listen("localhost:" + strconv.Itoa(port))
 }
