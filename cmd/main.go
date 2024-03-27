@@ -4,13 +4,21 @@ import (
 	"fmt"
 	handler "go-imagestorage/internal/common"
 	imageHandler "go-imagestorage/internal/image"
-	"strconv"
+	"log"
+	"os"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	err := godotenv.Load(".env", ".env.example");
+  if err != nil {
+		log.Fatal(err);
+		return;
+  }
+	
 	server := fiber.New()
 	server.Static("/", "./public")
 	server.Use(cors.New(cors.Config{
@@ -24,8 +32,6 @@ func main() {
 	imageGroup.Get("/:context/:filename", imageHandler.Retrieve)
 	imageGroup.Post("/upload", imageHandler.Upload)
 
-	port := 8080
-
-	fmt.Println("Server is running on http://localhost:" + strconv.Itoa(port))
-	server.Listen("localhost:" + strconv.Itoa(port))
+	fmt.Println("Server is running on localhost:"+os.Getenv("PORT"));
+	server.Listen("localhost:"+os.Getenv("PORT"));
 }

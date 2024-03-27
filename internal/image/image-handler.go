@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -59,8 +60,8 @@ func Upload(c *fiber.Ctx) error {
 	}
 
 	return c.Status(200).JSON(&fiber.Map{
-		"message":  "File uploaded successfully",
-		"url": "http://localhost:8080/images/" + context + "/" + filename + fileExtension,
+		"message": "File uploaded successfully",
+		"url": os.Getenv("URL")+"/images/" + context + "/" + filename + fileExtension,
 	})
 }
 
