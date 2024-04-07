@@ -37,7 +37,7 @@ func Upload(c *fiber.Ctx) error {
 		})
 	}
 
-	allowedTypes := []string{"image/jpeg", "image/png"}
+	allowedTypes := []string{"audio/mpeg"}
 	if !contains(allowedTypes, file.Header.Get("Content-Type")) {
 		return c.Status(400).JSON(&fiber.Map{
 			"message": "File type not allowed. Only jpg and png are allowed",
@@ -61,7 +61,7 @@ func Upload(c *fiber.Ctx) error {
 
 	return c.Status(200).JSON(&fiber.Map{
 		"message": "File uploaded successfully",
-		"url": os.Getenv("URL")+"/images/" + context + "/" + filename + fileExtension,
+		"url":     os.Getenv("URL") + "/images/" + context + "/" + filename + fileExtension,
 	})
 }
 

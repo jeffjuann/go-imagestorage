@@ -6,6 +6,6 @@ import (
 
 func Info(c *fiber.Ctx) error {
 	return c.Status(200).JSON(&fiber.Map{
-		"message": "Go-ImageStorage is running",
+		"message": "Go-SoundStorage is running",
 	});
 }
